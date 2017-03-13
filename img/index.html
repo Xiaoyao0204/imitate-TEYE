@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<img id="img360" src="img/IMG_7434.jpg"/>
+		<script>
+			var num = 0;
+			var disX = null;
+			var disX2 = null;
+			var img360Arr = [];
+			var str = null;
+			for (var i = 7434; i < 7506; i++) {
+				img360Arr.push("img/IMG_"+ i +".jpg");
+			}
+			str = img360Arr[0];
+			document.onmousedown = function(ev){
+				disX = ev.clientX;
+				disX2 = ev.clientX;
+				document.onmousemove = function(ev){
+					disX2 = ev.clientX;
+					console.log("disX:"+disX,"disX2:"+disX2);
+					console.log(Math.abs(disX2 - disX));
+					if(Math.abs((disX2 - disX) < 5)){
+						return;
+					}
+					
+					
+					if((disX - ev.clientX) > 0){
+						num--;
+						disX = ev.clientX;
+						if(num < 0){
+							num = img360Arr.length-1;
+						}
+						str = img360Arr[num];
+						console.log("++");
+					}
+					if((disX - ev.clientX) < 0){
+						num++;
+						disX = ev.clientX;
+						if(num > img360Arr.length-1){
+							num = 0;
+						}
+						str = img360Arr[num];
+						console.log("--");
+					}
+					img360.src = str;
+					console.log(disX,ev.clientX);
+				}
+				document.onmouseup = function(ev){
+					document.onmousemove = null;
+				}
+			}
+			
+		</script>
+	</body>
+</html>
